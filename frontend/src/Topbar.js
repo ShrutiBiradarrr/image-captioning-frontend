@@ -14,10 +14,7 @@ export default function Topbar() {
         <div>
           <span className="logo">Image Caption Generator</span>
         </div>
-        <div>
-          {localStorage.getItem('token') && <button onClick={handleLogout} style={{marginRight:"42px"}} className="btnn">Logout</button>}
-        {/* </div> */}
-      </div>
+        
     </div>
   )
 }

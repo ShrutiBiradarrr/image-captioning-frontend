@@ -7,10 +7,10 @@ from keras.applications import ResNet50
 from keras.optimizers import Adam
 from keras.layers import Dense, Flatten,Input, Convolution2D, Dropout, LSTM, TimeDistributed, Embedding, Bidirectional, Activation, RepeatVector,Concatenate
 from keras.models import Sequential, Model
-from keras.utils import np_utils
+from tensorflow.python.keras.utils import np_utils
 from keras.preprocessing import image, sequence
 import cv2
-from keras_preprocessing.sequence import pad_sequences
+from keras.utils import pad_sequences
 from tqdm import tqdm
 # from keras.applications.Resnet50 import preprocess_input
 from flask_cors import CORS

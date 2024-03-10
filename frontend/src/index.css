@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html,
 body {
   margin: 0;
@@ -16,23 +20,34 @@ code {
 
 .imgcss {
   border: 2px solid black;
-  width: 35rem;
+  width: 100%;
 }
 
 .divtop {
-  height: 100%;
+  background-image: url("../src/background/img.jpg");
+  background-repeat: "no-repeat";
+  background-size: cover;
+  /* background-size: "contain"; */
+  height: 100vh;
   width: 100%;
   padding: 102px;
   /* background-color: #4CAF50; */
 }
 
 .div1 {
+  width: 70%;
   display: flex;
-  flex-direction: row;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 }
 
 .rightbar {
-  margin: 50px;
+  margin-top: 50px;
+
+  justify-content: center;
+  text-align: center;
+  align-items: center;
 
 }
 
@@ -41,6 +56,11 @@ code {
       rgb(89, 186, 238), rgb(70, 181, 241), rgb(35, 147, 238), rgb(38, 178, 238), rgb(18, 140, 215), rgb(17, 87, 184), rgb(18, 54, 145));
   -webkit-background-clip: text;
   color: transparent;
+  margin-bottom: 90px;
+}
+
+.files {
+  margin-left: 110px;
 }
 
 /* CSS */
@@ -62,9 +82,9 @@ code {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
-  width: 53%;
-  margin-top: 42px;
-  margin-left: 59px;
+  width: 35%;
+  margin-top: 72px;
+  margin: 72px auto;
 }
 
 .btnGenerate:hover {
@@ -78,8 +98,11 @@ code {
   align-items: center;
   justify-content: center;
   height: 100vh;
+  background-color: #6b46c1;
 
-  background-color: #3a2d70;
+  /* Gradient definition */
+  background-image: linear-gradient(to right, #6b46c1, #0b5b84);
+
 }
 
 .result-window {
@@ -122,6 +145,7 @@ code {
   font-size: 24px;
   font-weight: bold;
   text-align: center;
+  color: black;
 }
 
 .result-image {
@@ -133,18 +157,11 @@ code {
 .result-caption {
   font-weight: bold;
   font-size: 18px;
+  margin-top: 40px;
+  margin-bottom: 30px;
   color: black;
 }
 
-.text-to-speech-btn {
-  background-color: #4CAF50;
-  color: white;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  margin: 10px;
-  cursor: pointer;
-}
 
 .translate-btn {
   background-color: #008CBA;
@@ -182,6 +199,7 @@ code {
   padding: 10px 40px 10px 40px;
   text-decoration: none;
 }
+
 .btm:hover {
   background: #30e3cb;
   background-image: -webkit-linear-gradient(top, #30e3cb, #2bc4ad);
@@ -193,7 +211,7 @@ code {
 }
 
 /* -------------- choose file -------------- */
-.result-logout{
+.result-logout {
   background-image: -webkit-linear-gradient(top, #FFF3E2, #FFE5CA);
   background-image: -moz-linear-gradient(top, #FFF3E2, #FFE5CA);
   background-image: -ms-linear-gradient(top, #FFF3E2, #FFE5CA);
@@ -208,7 +226,7 @@ code {
   cursor: pointer;
 }
 
-.result-logout:hover{
+.result-logout:hover {
   background: #30e3cb;
   background-image: -webkit-linear-gradient(top, #30e3cb, #2bc4ad);
   background-image: -moz-linear-gradient(top, #30e3cb, #2bc4ad);
@@ -219,7 +237,7 @@ code {
 }
 
 /* -----------------------Extra button ----------------- */
-.extra-button{
+.extra-button {
   display: flex;
   flex-direction: row;
 }

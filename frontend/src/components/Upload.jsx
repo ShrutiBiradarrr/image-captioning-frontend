@@ -1,102 +1,100 @@
 import React, { useState, useEffect } from "react";
 
-import "../index.css"
+import "../index.css";
 // import Topbar from "./Topbar";
 import Topbar from "../Topbar";
 // import back2 from "./background/back2.jpg"
-import back2 from "../background/back2.jpg"
+import back2 from "../background/img.jpg";
 import Result from "./Result";
 import Loader from "./Loader";
 // BHushan
 
-
 const ImageCaptionGenerator = () => {
+  const [selectedFile, setSelectedFile] = useState("");
+  // const [selectedFile, setSelectedFile] = useState("No file choosen");
+  const [preview, setPreview] = useState("");
+  const [bool, setBool] = useState(false);
 
-    const [selectedFile, setSelectedFile] = useState("");
-    // const [selectedFile, setSelectedFile] = useState("No file choosen");
-    const [preview, setPreview] = useState("");
-    const [bool, setBool] = useState(false);
+  const [name, setName] = useState("");
 
-    const [name, setName] = useState("");
+  const handleImageChange = (event) => {
+    // const img = event.target.files[0].name;
+    const img = event.target.files[0];
+    setSelectedFile(img);
+  };
 
-    const handleImageChange = (event) => {
-        // const img = event.target.files[0].name;
-        const img = event.target.files[0];
-        setSelectedFile(img);
-    };
-
-    const handleGenerateCaption = (event) => {
-
-        if (selectedFile)
-            setBool(true);
-        else {
-            window.alert("Select image first");
-        }
-
-    };
-
-    const fetchUser = async () => {
-        const url = `http://localhost:8000/fetchnotes`;
-        const response = await fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                "token": localStorage.getItem('token')
-            }
-        });
-
-        const json = await response.json();
-        console.log('Ithe user json ', json);
-        setName(json.firstname);
+  const handleGenerateCaption = (event) => {
+    if (selectedFile) setBool(true);
+    else {
+      window.alert("Select image first");
     }
+  };
 
-    useEffect(() => {
-        if (localStorage.getItem('token')) {
-            fetchUser();
-        }
-    }, []);
+  const fetchUser = async () => {
+    const url = `http://localhost:8000/fetchnotes`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        token: localStorage.getItem("token"),
+      },
+    });
 
-    return (
-        <>
-            <div>
+    const json = await response.json();
+    console.log("Ithe user json ", json);
+    setName(json.firstname);
+  };
 
-                {!bool && <div className="divtop" style={{ backgroundImage: `url(${back2})`, backgroundRepeat: "no-repeat", backgroundSize: "contain", height: 770, width: 1320 }}>
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      fetchUser();
+    }
+  }, []);
 
-                    <Topbar />
-                    <div className="div1">
-                        <div className="rightbar">
+  return (
+    <>
+      <div>
+        {!bool && (
+          <div className="divtop">
+            <div className="div1">
+              <div className="rightbar">
+                <h1 className="heading">Welcome to CaptionMagic</h1>
 
-                            {localStorage.getItem('token') ?
+                <h5 style={{ color: "white", fontSize: "25px" }}>
+                  Let Images Speak <br />
+                  Upload an Image to Generate Captivating Captions!
+                </h5>
 
-                                <h1 className="heading" >Hello {name}</h1> :
-                                <h1 className="heading">
-                                    Welcome to VocPix
-                                </h1>
-                            }
+                <input
+                  className="files"
+                  type="file"
+                  style={{ color: "blue", fontSize: "14px" }}
+                  onChange={handleImageChange}
+                />
 
-                            <h5 style={{ color: 'black', fontSize: "16px" }}>Let Images Speak <br />Upload an Image to Generate Captivating Captions!</h5>
+                <div className="imgdiv">
+                  {preview && (
+                    <img className="imgcss" src={preview} alt="image" />
+                  )}
+                </div>
 
-                           
-
-                            <input type="file" style={{color:"black"}} onChange={handleImageChange} />
-
-                            <div className="imgdiv">
-                                {preview && <img className="imgcss" src={preview} alt="image" />}
-                            </div>
-                            
-                            <div>
-                                
-                                <button className="btnGenerate" onClick={handleGenerateCaption}>Generate Caption</button>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>}
-
-                {bool && <Result img={selectedFile} />}
+                <div>
+                  <button
+                    className="btnGenerate"
+                    onClick={handleGenerateCaption}
+                  >
+                    Generate Caption
+                  </button>
+                </div>
+              </div>
             </div>
-        </>
-    );
+          </div>
+        )}
+
+        {bool && <Result img={selectedFile} />}
+      </div>
+    </>
+  );
 };
 
 export default ImageCaptionGenerator;
