@@ -5,6 +5,7 @@ import TransButton from "./TransButton";
 import Upload from "./Upload";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 // import "../topbar.css";
 
 const Result = (props) => {
@@ -14,29 +15,25 @@ const Result = (props) => {
   const { speak } = useSpeechSynthesis();
   const [bool1, setBool] = useState(false);
 
-  const handleListen = () => {
-    speak({ text: caption });
-  };
-
   const callback = (lang) => {
     setCaption(lang);
   };
-
   const fetchCaption = async () => {
+    console.log(props.img, "props");
     const formData = new FormData();
     formData.append("file", props.img);
-
-    // console.log("hi");
+    console.log(formData);
     try {
       const url = `http://localhost:5000/after`;
-      const response = await fetch(url, {
-        method: "Post",
-        body: formData,
+      const response = await axios.post(url, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       });
+      console.log(response.data);
+      // const data = await response.json();
 
-      const data = await response.json();
-      setCaption(data.caption);
-      setCap(data.caption);
+      setCaption(response.data.description);
     } catch (err) {
       console.log(err);
     }
@@ -46,15 +43,9 @@ const Result = (props) => {
 
     fetchCaption();
   }, []);
+
   const handleClick = () => {
     setBool(true);
-  };
-
-  let navigate = useNavigate();
-
-  const handleLogout = () => {
-    localStorage.removeItem("token");
-    navigate("/");
   };
 
   return (
